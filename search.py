@@ -132,9 +132,9 @@ def uniformCostSearch(problem):
     frontier = PriorityQueue()
     explored = []
     actions = []
-    frontier.push((problem.getStartState(), actions))
+    frontier.push((problem.getStartState(), 0, actions))
     while(not frontier.isEmpty()):
-        coordinates, actions = frontier.pop()
+        coordinates, path_cost, actions = frontier.pop()
         if problem.isGoalState(coordinates): return actions
         explored.append(coordinates)
         successors = problem.getSuccessors(coordinates)
