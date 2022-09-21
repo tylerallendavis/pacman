@@ -141,8 +141,12 @@ def uniformCostSearch(problem):
         if successors:
             for i in successors: 
                 if i[0] not in explored:
-                    frontier.push(( i[0], (actions + i[1])))
+                    frontier.push(( i[0], (path_cost + i[1]), (actions + i[2])))
+                elif i[0] in explored and i[1] > path_cost:
 
+
+# https://github.com/alex-rantos/Project-1-Search-in-Pacman/blob/master/search.py
+# https://github.com/PetropoulakisPanagiotis/pacman-projects/blob/master/Project1/search.py
 
 
 def nullHeuristic(state, problem=None):
