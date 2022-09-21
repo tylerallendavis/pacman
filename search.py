@@ -95,15 +95,15 @@ def depthFirstSearch(problem):
     explored = []
     actions = []
     frontier.push((problem.getStartState(), actions))
-    while(frontier): # while frontier not empty
+    while(not frontier.isEmpty()): # while frontier not empty
         coordinates, actions = frontier.pop()
         if problem.isGoalState(coordinates): return actions # maybe switch
-        explored.append(coordinates) # maybe switch
-        successors = problem.getSuccessors(coordinates)
-        if successors:
-            for i in successors:
-                if i[0] not in explored:
-                    frontier.push(( i[0], (actions + i[1]))) # used to be 2 lines
+        if coordinates not in explored: explored.append(coordinates) # maybe switch
+        # successors = problem.getSuccessors(coordinates)
+        # if successors:
+        for i in problem.getSuccessors(coordinates):
+            if i[0] not in explored:
+                frontier.push(( i[0], (actions + [i[1]]))) # used to be 2 lines
 
 
 def breadthFirstSearch(problem):
@@ -114,7 +114,7 @@ def breadthFirstSearch(problem):
     explored = []
     actions = []
     frontier.push((problem.getStartState(), actions))
-    while(frontier):
+    while(not frontier.isEmpty()):
         coordinates, actions = frontier.pop()
         if problem.isGoalState(coordinates): return actions
         explored.append(coordinates)
@@ -133,13 +133,15 @@ def uniformCostSearch(problem):
     explored = []
     actions = []
     frontier.push((problem.getStartState(), actions))
-    while(frontier):
+    while(not frontier.isEmpty()):
         coordinates, actions = frontier.pop()
         if problem.isGoalState(coordinates): return actions
         explored.append(coordinates)
         successors = problem.getSuccessors(coordinates)
-            for i in successors:
-                if i[0] not in explored
+        if successors:
+            for i in successors: 
+                if i[0] not in explored:
+                    frontier.push(( i[0], (actions + i[1])))
 
 
 
