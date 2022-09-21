@@ -119,6 +119,23 @@ def depthFirstSearch(problem):
                     route_arr_add = route_arr + [ i[1] ]
                     stack.push(( i[0], route_arr_add ))
 
+    from util import Stack
+    s = Stack()
+    visited = []
+    actions = []
+    s.push((problem.getStartState(), actions))
+    while(s):
+        coordinates, actions = s.pop()
+        if problem.isGoalState(coordinates): return actions
+        visited.append(coordinates)
+        successors = problem.getSuccessors(coordinates)
+        if successors:
+            for i in successors:
+                if i[0] not in visited:
+                    s.push(( i[0], (actions + i[1])))
+
+
+
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
@@ -151,6 +168,22 @@ def breadthFirstSearch(problem):
                 if i[0] not in visit_arr:
                     route_arr_add = route_arr + [ i[1] ]
                     queue.push(( i[0], route_arr_add ))
+
+
+    from util import Queue
+    q = Queue()
+    visited = []
+    actions = []
+    q.push((problem.getStartState(), actions))
+    while(q):
+        coordinates, actions = q.pop()
+        if problem.isGoalState(coordinates): return actions
+        visited.append(coordinates)
+        successors = problem.getSuccessors(coordinates)
+        if successors:
+            for i in successors:
+                if i[0] not in visited:
+                    q.push(( i[0], (actions + i[1])))
 
 
 def uniformCostSearch(problem):
