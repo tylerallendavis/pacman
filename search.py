@@ -127,14 +127,15 @@ def breadthFirstSearch(problem):
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
+
     from util import PriorityQueue
     frontier = PriorityQueue()
     explored = []
-    frontier.push((problem.getStartState(), [], 0), 0)
+    frontier.push((problem.getStartState(), []), 0)
     # if EMPTY?(frontier) then return failure
     while (not frontier.isEmpty()):
         # node <- POP(frontier)
-        coordinates, actions, cost_now = frontier.pop()
+        coordinates, actions = frontier.pop()
         # if problemGOAL-TEST(node.STATE) then return SOLUTION(node)
         if problem.isGoalState(coordinates):
             return actions
@@ -152,7 +153,7 @@ def uniformCostSearch(problem):
                 else:
                     for j in frontier.heap:
                         if j[2][0] == i[0]:
-                            cur_cost = problem.getCostOfActions(j[2][0])
+                            cur_cost = problem.getCostOfActions(j[2][1])
                     new_cost = problem.getCostOfActions(actions + [i[1]])
                     # replace that frontier node with child
                     if cur_cost > new_cost:
