@@ -88,76 +88,75 @@ def depthFirstSearch(problem):
     print("Start:", problem.getStartState())
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
-
+    
     "*** YOUR CODE HERE ***"
+    # import Stack
     from util import Stack
-    frontier = Stack()
-    explored = []
-    actions = []
-    frontier.push((problem.getStartState(), []))
+    stack = Stack()
 
-    while(not frontier.isEmpty()):
-        coordinates, actions = frontier.pop()
-        if problem.isGoalState(coordinates):
-            return actions
-        if coordinates not in explored:
-            explored.append(coordinates)
-            for i in problem.getSuccessors(coordinates):
-                frontier.push(( i[0], (actions + [i[1]])))
+    # create arrays for visited and route taken
+    visit_arr = []
+    route_arr = []
+    blank_arr = []
+
+    stack.push(( problem.getStartState(), blank_arr ))
+
+    while(1):
+
+        # get current cordinates and route taken
+        cord, route_arr = stack.pop()
+        visit_arr.append(cord)
+
+        # if we reach goal, return the route taken
+        if problem.isGoalState(cord): return route_arr
+
+        successors = problem.getSuccessors(cord)
+
+        # add to stack if not goal
+        if successors:
+            for i in successors:
+                if i[0] not in visit_arr:
+                    route_arr_add = route_arr + [ i[1] ]
+                    stack.push(( i[0], route_arr_add ))
+
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+    # import Queue
     from util import Queue
-    frontier = Queue()
-    explored = []
-    actions = []
-    frontier.push((problem.getStartState(), []))
+    queue = Queue()
 
-    while(not frontier.isEmpty()):
-        coordinates, actions = frontier.pop()
-        if problem.isGoalState(coordinates):
-            return actions
-        if coordinates not in explored:
-            explored.append(coordinates)
-            for i in problem.getSuccessors(coordinates):
-                frontier.push(( i[0], (actions + [i[1]])))
+    # create arrays for visited and route taken
+    visit_arr = []
+    route_arr = []
+    blank_arr = []
+
+    queue.push(( problem.getStartState(), blank_arr ))
+
+    while(1):
+
+        # get current cordinates and route taken
+        cord, route_arr = queue.pop()
+        visit_arr.append(cord)
+
+        # if we reach goal, return the route taken
+        if problem.isGoalState(cord): return route_arr
+
+        successors = problem.getSuccessors(cord)
+
+        # add to queue if not goal
+        if successors:
+            for i in successors:
+                if i[0] not in visit_arr:
+                    route_arr_add = route_arr + [ i[1] ]
+                    queue.push(( i[0], route_arr_add ))
 
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    from util import PriorityQueue
-    frontier = PriorityQueue()
-    explored = []
-    frontier.push((problem.getStartState(), [], 0), 0)
-    # if EMPTY?(frontier) then return failure
-    while (not frontier.isEmpty()):
-        # node <- POP(frontier)
-        coordinates, actions, cost_now = frontier.pop()
-        # if problemGOAL-TEST(node.STATE) then return SOLUTION(node)
-        if problem.isGoalState(coordinates):
-            return actions
-        if coordinates not in explored:
-            # add node.STATE to explored
-            explored.append(coordinates)
-            for i in problem.getSuccessors(coordinates):
-                # if child.STATE is not in explored or frontier
-                if i[0] not in (state[2][0] for state in frontier.heap):
-                    action = actions + [i[1]]
-                    cost = problem.getCostOfActions(action)
-                    # frontier <- INSERT(child, frontier)
-                    frontier.push((i[0], action), cost)
-                # if child.STATE is in frontier with higher PATH-COST
-                else:
-                    for j in frontier.heap:
-                        if j[2][0] == i[0]:
-                            cur_cost = problem.getCostOfActions(j[2][0])
-                    new_cost = problem.getCostOfActions(actions + [i[1]])
-                    # replace that frontier node with child
-                    if cur_cost > new_cost:
-                        action = actions [i[1]]
-                        frontier.update((i[0], actions), new_cost)
+    util.raiseNotDefined()
 
 
 def nullHeuristic(state, problem=None):
@@ -171,20 +170,7 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    from util import PriorityQueue
-    frontier = PriorityQueue()
-    explored = []
-    frontier.push((problem.getStartState(), [], 0), 0)
-
-    while (not frontier.isEmpty()):
-        coordinates, actions, cost_now = frontier.pop()
-        if problem.isGoalState(coordinates):
-            return actions
-        if coordinates not in explored:
-            explored.append(coordinates)
-            for coord_next, action_next, cost_next in problem.getSuccessors(coordinates):
-                heuristics = cost_now + cost_next + heuristic(coord_next, problem)
-                frontier.push((coord_next, (actions + [action_next]), (cost_now + cost_next)), heuristics)
+    util.raiseNotDefined()
 
 
 # Abbreviations
